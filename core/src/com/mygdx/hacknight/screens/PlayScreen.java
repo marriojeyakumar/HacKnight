@@ -42,6 +42,8 @@ public class PlayScreen implements Screen {
 
     public static TextureAtlas atlas;
 
+    private boolean hasEnteredFight = false;
+
 
     public PlayScreen(HacKnight game, GameHud hud, int levelNumber) {
         this.levelNumber = levelNumber;
@@ -134,8 +136,11 @@ public class PlayScreen implements Screen {
     private void update(float delta) {
         worldRenderer.updateWorld(delta, hud);
         hud.update(delta);
-        if (levelNumber == 4 && camera.position.y < 92.5f) {
+        if (levelNumber == 7 && camera.position.y < 92.5f) {
             camera.position.y = camera.position.y + 0.02f;
+        } else if (hasEnteredFight || levelNumber == 6 && worldRenderer.getMarioX() > 46.5f * HacKnight.TILE_LENGTH * HacKnight.SCALE) {
+            camera.position.x = 46.5f * HacKnight.TILE_LENGTH * HacKnight.SCALE;
+            hasEnteredFight = true;
         }
         else if (worldRenderer.getMarioX() > 12.5 * HacKnight.TILE_LENGTH * HacKnight.SCALE)
             camera.position.x = worldRenderer.getMarioX();
@@ -168,9 +173,12 @@ public class PlayScreen implements Screen {
         levels = new HashMap<>();
         levels.put(1, "Level1.tmx");
         levels.put(2, "Level2.tmx");
-        levels.put(3, "Level3.tmx");
-        levels.put(4, "Level4.tmx");
-        levels.put(5, "CreditsLevel.tmx");
+        levels.put(3, "Level2.tmx");
+        levels.put(4, "PizzaSkyDrop.tmx");
+        levels.put(5, "Level3.tmx");
+        levels.put(6, "Colosseum.tmx");
+        levels.put(7, "Level4.tmx");
+        levels.put(8, "CreditsLevel.tmx");
     }
 
     private void configureThemeSong() {
@@ -182,24 +190,36 @@ public class PlayScreen implements Screen {
                 SoundManager.SPED_UP_THEME_SONG.setVolume(0.22f);
                 break;
             case 2:
-                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Underground.mp3"));
-                SoundManager.THEME_SONG.setVolume(3f);
-                SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Underground Speed.mp3"));
-                SoundManager.SPED_UP_THEME_SONG.setVolume(3f);
-                break;
-            case 3:
                 SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Level3 Song.mp3"));
                 SoundManager.THEME_SONG.setVolume(0.45f);
                 SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Level3 Song Speed.mp3"));
                 SoundManager.SPED_UP_THEME_SONG.setVolume(0.45f);
                 break;
+            case 3:
+                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Underground.mp3"));
+                SoundManager.THEME_SONG.setVolume(3f);
+                SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Underground Speed.mp3"));
+                SoundManager.SPED_UP_THEME_SONG.setVolume(3f);
+                break;
             case 4:
+                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Level3 Song.mp3"));
+                SoundManager.THEME_SONG.setVolume(0.45f);
+                SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Level3 Song Speed.mp3"));
+                SoundManager.SPED_UP_THEME_SONG.setVolume(0.45f);
+                break;
+            case 5:
                 SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Sky Theme.mp3"));
                 SoundManager.THEME_SONG.setVolume(0.22f);
                 SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Sky Theme Speed.mp3"));
                 SoundManager.SPED_UP_THEME_SONG.setVolume(0.22f);
                 break;
-            case 5:
+            case 6:
+                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Colosseum Fight Slow.mp3"));
+                SoundManager.THEME_SONG.setVolume(0.4f);
+                SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Colosseum Song.mp3"));
+                SoundManager.SPED_UP_THEME_SONG.setVolume(0.4f);
+                break;
+            case 7:
                 SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Delfino Plaza.mp3"));
                 SoundManager.THEME_SONG.setVolume(0.4f);
                 SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Delfino Plaza Speed.mp3"));

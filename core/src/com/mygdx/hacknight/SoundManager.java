@@ -19,4 +19,7 @@ public class SoundManager {
     public static final Sound ITSA_ME_SOUND = Gdx.audio.newSound(Gdx.files.internal("Downloads/Sounds & Music/It's-a Me Mario!.mp3"));
     public static final Music GAME_WON_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Game Won.mp3"));
     public static final Music SPEED_UP_MUSIC = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Speed Up.wav"));
+    public static final Music COLOSSEUM_FIGHT = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Colosseum Song.mp3"));
+    public static final Music COLOSSEUM_FIGHT_SLOW = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Colosseum Fight Slow.mp3"));
+
 }

@@ -150,7 +150,7 @@ public class WorldRenderer implements Disposable {
             throw new RuntimeException(e);
         }
 
-        if (screen.getLevelNumber() == 5) {
+        if (screen.getLevelNumber() == 6) {
             game.setScreen(new GameWonScreen(game));
         } else {
             game.setScreen(new PlayScreen(game, screen.getHud(), screen.getLevelNumber() + 1));
