@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.hacknight.HacKnight;
 import com.mygdx.hacknight.WorldRenderer;
+import com.mygdx.hacknight.screens.PlayScreen;
 
 
 public class PhysicalObject {
@@ -21,11 +22,13 @@ public class PhysicalObject {
     protected Fixture fixture;
     protected final Rectangle hitbox;
     protected final TiledMap map;
+    protected WorldRenderer wr;
 
     public PhysicalObject(WorldRenderer wr, Rectangle hitbox) {
         this.world = wr.getWorld();
         this.map = wr.getMap();
         this.hitbox = hitbox;
+        this.wr = wr;
 
         constructMapObj();
     }
