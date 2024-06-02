@@ -222,6 +222,16 @@ public class WorldRenderer implements Disposable {
                     rect.getY() * HacKnight.SCALE));
         }
     }
+    private void constructLuigi() {
+        goombas = new ArrayList<>();
+        Rectangle rect;
+
+        for (RectangleMapObject obj : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
+            rect = obj.getRectangle();
+            goombas.add(new Goomba(this, rect.getX() * HacKnight.SCALE,
+                    rect.getY() * HacKnight.SCALE));
+        }
+    }
 
     private void constructKoopas() {
         koopas = new ArrayList<>();

@@ -60,7 +60,9 @@
   <object id="296" x="928" y="0" width="32" height="304"/>
   <object id="297" x="528" y="0" width="32" height="240"/>
  </objectgroup>
- <objectgroup id="10" name="goombas"/>
+ <objectgroup id="10" name="goombas">
+    <object id="298" x="880" y="288" width="16" height="16"/>
+ </objectgroup>
  <objectgroup id="12" name="koopas"/>
  <objectgroup id="14" name="flagpole"/>
  <objectgroup id="15" name="exit"/>
