@@ -29,6 +29,8 @@ import com.mygdx.hacknight.items.Pizza;
 import com.mygdx.hacknight.screens.GameWonScreen;
 import com.mygdx.hacknight.screens.PlayScreen;
 import com.mygdx.hacknight.tiles.Brick;
+import com.mygdx.hacknight.tiles.CarrotBlock;
+import com.mygdx.hacknight.tiles.CheeseBlock;
 import com.mygdx.hacknight.tiles.Coin;
 import com.mygdx.hacknight.tiles.CoinBlock;
 import com.mygdx.hacknight.tiles.DefaultTile;
@@ -36,6 +38,8 @@ import com.mygdx.hacknight.tiles.EnemyBorder;
 import com.mygdx.hacknight.tiles.ExitDoor;
 import com.mygdx.hacknight.tiles.Flagpole;
 import com.mygdx.hacknight.tiles.Ground;
+import com.mygdx.hacknight.tiles.MeatBlock;
+
 import java.util.Random;
 
 
@@ -261,6 +265,11 @@ public class WorldRenderer implements Disposable {
         constructFlagpole();
         constructExitDoor();
         constructEnemyBorders();
+        if (screen.getLevelNumber() == 2) {
+            constructCarrotBlocks();
+            constructCheeseBlocks();
+            constructMeatBlocks();
+        }
     }
 
     private void constructExitDoor() {
@@ -312,7 +321,7 @@ public class WorldRenderer implements Disposable {
 
         for (RectangleMapObject obj : map.getLayers().get(12).getObjects().getByType(RectangleMapObject.class)) {
             rect = obj.getRectangle();
-            new EnemyBorder(this, rect);
+            new CarrotBlock(this, rect);
         }
     }
 
@@ -321,7 +330,7 @@ public class WorldRenderer implements Disposable {
 
         for (RectangleMapObject obj : map.getLayers().get(14).getObjects().getByType(RectangleMapObject.class)) {
             rect = obj.getRectangle();
-            new EnemyBorder(this, rect);
+            new MeatBlock(this, rect);
         }
     }
 
@@ -330,7 +339,7 @@ public class WorldRenderer implements Disposable {
 
         for (RectangleMapObject obj : map.getLayers().get(13).getObjects().getByType(RectangleMapObject.class)) {
             rect = obj.getRectangle();
-            new EnemyBorder(this, rect);
+            new CheeseBlock(this, rect);
         }
     }
 

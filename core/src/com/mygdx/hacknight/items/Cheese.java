@@ -27,12 +27,7 @@ public class Cheese extends Item {
         CircleShape shape = new CircleShape();
         shape.setRadius(6 * HacKnight.SCALE);
         fdef.filter.categoryBits = HacKnight.ITEM_COL;
-        fdef.filter.maskBits = HacKnight.MARIO_COL |
-                HacKnight.GROUND_COL |
-                HacKnight.DEFAULT_COL |
-                HacKnight.COIN_BLOCK_COL |
-                HacKnight.DESTROYED_COL |
-                HacKnight.BRICK_COL;
+        fdef.filter.maskBits = HacKnight.MARIO_COL;
 
         fdef.shape = shape;
         body.createFixture(fdef).setUserData(this);

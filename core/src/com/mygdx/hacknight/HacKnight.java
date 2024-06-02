@@ -60,7 +60,7 @@ public class HacKnight extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		super.setScreen(new PlayScreen(this, new com.mygdx.hacknight.GameHud(batch), 1));
+		super.setScreen(new PlayScreen(this, new com.mygdx.hacknight.GameHud(batch), 2));
 	}
 
 	@Override
