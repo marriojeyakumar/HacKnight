@@ -19,7 +19,6 @@ import com.mygdx.hacknight.HacKnight;
 import com.mygdx.hacknight.SoundManager;
 import com.mygdx.hacknight.WorldRenderer;
 import com.mygdx.hacknight.screens.PlayScreen;
-import com.mygdx.hacknight.HacKnight;
 
 
 public class Mario extends Sprite implements Disposable {
@@ -35,11 +34,11 @@ public class Mario extends Sprite implements Disposable {
     public State currentState;
     public State previousState;
     private boolean isDead;
-
-    private int levelNum;
     private boolean flagpoleHit = false;
     private float stateTimer;
     private boolean runningRight;
+
+    private int levelNum;
 
     private boolean walkedOff = false;
     private boolean wentThroughExitDoor = false;
@@ -47,11 +46,12 @@ public class Mario extends Sprite implements Disposable {
     public Mario(World world, int levelNumber) {
         super(PlayScreen.atlas.findRegion("small_mario"));
         this.world = world;
-        levelNum = levelNumber;
+
         currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0;
         runningRight = true;
+        levelNum = levelNumber;
         Array<TextureRegion> frames = new Array<>();
         for (int i = 1; i < 4; i++)
             frames.add(new TextureRegion(getTexture(), i * 16, 0, 15, 16) );
@@ -108,7 +108,6 @@ public class Mario extends Sprite implements Disposable {
         }
     }
     public void walkOffStage(float delta) {
-        System.out.println(levelNum);
         if (wentThroughExitDoor)
             setPosition(0, 0);
         else {
@@ -120,7 +119,7 @@ public class Mario extends Sprite implements Disposable {
             SoundManager.STAGE_WIN_SOUND.play();
             walkedOff = true;
         }
-        if(levelNum != 6 && levelNum != 4)
+        if(levelNum != 4 && levelNum != 6)
             mario.setLinearVelocity(new Vector2(15f, -45f));
     }
 
@@ -143,8 +142,6 @@ public class Mario extends Sprite implements Disposable {
         }
 
         SoundManager.FLAGPOLE_SOUND.play();
-        SoundManager.THEME_SONG.stop();
-        SoundManager.SPED_UP_THEME_SONG.stop();
         flagpoleHit = true;
     }
 

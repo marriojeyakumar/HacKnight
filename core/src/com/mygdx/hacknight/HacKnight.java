@@ -45,6 +45,10 @@ public class HacKnight extends Game {
 
 	public static final int ITEM_COL = 8192;
 
+	public static final int CARROT_BLOCK_COL = 16384;
+	public static final int CHEESE_BLOCK_COL = 32768;
+	public static final int MEAT_BLOCK_COL = 65536;
+
 	// Holds all sprites and images
 	// Public so all screens can have access to it
 	public static SpriteBatch batch;
