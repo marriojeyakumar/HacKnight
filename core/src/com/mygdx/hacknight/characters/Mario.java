@@ -85,7 +85,7 @@ public class Mario extends Sprite implements Disposable {
         fixtureDef.filter.maskBits = HacKnight.GROUND_COL | HacKnight.COIN_COl
                 | HacKnight.BRICK_COL | HacKnight.COIN_BLOCK_COL | HacKnight.ENEMY_COL
                 | HacKnight.ENEMY_HEAD_COL | HacKnight.DEFAULT_COL | HacKnight.FLAGPOLE_COL
-                | HacKnight.EXIT_DOOR_COL | HacKnight.ITEM_COL;
+                | HacKnight.EXIT_DOOR_COL | HacKnight.ITEM_COL | HacKnight.CARROT_BLOCK_COL;
 
         fixtureDef.shape = hitbox;
         fixtureDef.friction = 0.3f;

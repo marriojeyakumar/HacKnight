@@ -77,7 +77,10 @@ public class GameContactListener implements ContactListener {
 
         else if (col == (HacKnight.MARIO_HEAD_COL | HacKnight.BRICK_COL) ||
                 col == (HacKnight.MARIO_HEAD_COL | HacKnight.COIN_BLOCK_COL) ||
-                col == (HacKnight.MARIO_HEAD_COL | HacKnight.COIN_COl)) {
+                col == (HacKnight.MARIO_HEAD_COL | HacKnight.COIN_COl) ||
+                col == (HacKnight.MARIO_HEAD_COL | HacKnight.CARROT_BLOCK_COL) ||
+                col == (HacKnight.MARIO_HEAD_COL | HacKnight.CHEESE_BLOCK_COL) ||
+                col == (HacKnight.MARIO_HEAD_COL | HacKnight.MEAT_BLOCK_COL)) {
             if (fixtureA.getFilterData().categoryBits == HacKnight.MARIO_HEAD_COL) {
                 InteractableObject obj = (InteractableObject) fixtureB.getUserData();
                 obj.hitMarioHead();

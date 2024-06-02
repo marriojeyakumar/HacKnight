@@ -7,14 +7,15 @@ import com.mygdx.hacknight.HacKnight;
 import com.mygdx.hacknight.SoundManager;
 import com.mygdx.hacknight.WorldRenderer;
 import com.mygdx.hacknight.items.Carrot;
+import com.mygdx.hacknight.items.Cheese;
 import com.mygdx.hacknight.items.ItemDef;
 import com.mygdx.hacknight.items.Pizza;
 
 
-public class CoinBlock extends PhysicalObject implements InteractableObject {
+public class CheeseBlock extends PhysicalObject implements InteractableObject {
     private final TiledMapTileSet tileset;
 
-    public CoinBlock(WorldRenderer wr, Rectangle hitbox) {
+    public CheeseBlock(WorldRenderer wr, Rectangle hitbox) {
         super(wr, hitbox);
         fixture.setUserData(this);
         setCategory(HacKnight.COIN_BLOCK_COL);
@@ -27,13 +28,10 @@ public class CoinBlock extends PhysicalObject implements InteractableObject {
         if (isBlankBlock())
             SoundManager.BLANK_BLOCK_SOUND.play();
         else {
-            SoundManager.COIN_SOUND.play();
+            wr.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y + 16 * HacKnight.SCALE), Cheese.class));
         }
 
         getCell().setTile(tileset.getTile(28));
-        GameHud.updateScore(1000);
-        GameHud.updateCoins(5);
-
     }
 
     private boolean isBlankBlock() {

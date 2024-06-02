@@ -20,8 +20,11 @@ import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.hacknight.characters.Goomba;
 import com.mygdx.hacknight.characters.Koopa;
 import com.mygdx.hacknight.characters.Mario;
+import com.mygdx.hacknight.items.Carrot;
+import com.mygdx.hacknight.items.Cheese;
 import com.mygdx.hacknight.items.Item;
 import com.mygdx.hacknight.items.ItemDef;
+import com.mygdx.hacknight.items.Meat;
 import com.mygdx.hacknight.items.Pizza;
 import com.mygdx.hacknight.screens.GameWonScreen;
 import com.mygdx.hacknight.screens.PlayScreen;
@@ -210,6 +213,15 @@ public class WorldRenderer implements Disposable {
             if (idef.type == Pizza.class) {
                 items.add(new Pizza(screen, idef.position.x, idef.position.y));
             }
+            else if (idef.type == Cheese.class) {
+                items.add(new Cheese(screen, idef.position.x, idef.position.y));
+            }
+            else if (idef.type == Carrot.class) {
+                items.add(new Carrot(screen, idef.position.x, idef.position.y));
+            }
+            else if (idef.type == Meat.class) {
+                items.add(new Meat(screen, idef.position.x, idef.position.y));
+            }
         }
     }
 
@@ -292,6 +304,33 @@ public class WorldRenderer implements Disposable {
             rect = obj.getRectangle();
             koopas.add(new Koopa(this, rect.getX() * HacKnight.SCALE,
                     rect.getY() * HacKnight.SCALE));
+        }
+    }
+
+    private void constructCarrotBlocks() {
+        Rectangle rect;
+
+        for (RectangleMapObject obj : map.getLayers().get(12).getObjects().getByType(RectangleMapObject.class)) {
+            rect = obj.getRectangle();
+            new EnemyBorder(this, rect);
+        }
+    }
+
+    private void constructMeatBlocks() {
+        Rectangle rect;
+
+        for (RectangleMapObject obj : map.getLayers().get(14).getObjects().getByType(RectangleMapObject.class)) {
+            rect = obj.getRectangle();
+            new EnemyBorder(this, rect);
+        }
+    }
+
+    private void constructCheeseBlocks() {
+        Rectangle rect;
+
+        for (RectangleMapObject obj : map.getLayers().get(13).getObjects().getByType(RectangleMapObject.class)) {
+            rect = obj.getRectangle();
+            new EnemyBorder(this, rect);
         }
     }
 
