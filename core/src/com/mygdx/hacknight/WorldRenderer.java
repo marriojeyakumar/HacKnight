@@ -111,10 +111,12 @@ public class WorldRenderer implements Disposable {
             if (!mario.isDead()) {
                 getInput(delta);
 
-                pizzaTime += delta;
-                if (pizzaTime >= 1f) {
-                    pizzaTime = 0;
-                    spawnItem(new ItemDef(new Vector2((32 + r.nextInt(8) * 48) * HacKnight.SCALE, 216 * HacKnight.SCALE), Pizza.class));
+                if (screen.getLevelNumber() == 4) {
+                    pizzaTime += delta;
+                    if (pizzaTime >= 1f) {
+                        pizzaTime = 0;
+                        spawnItem(new ItemDef(new Vector2((32 + r.nextInt(8) * 48) * HacKnight.SCALE, 216 * HacKnight.SCALE), Pizza.class));
+                    }
                 }
 
                 handleSpawningItems();
