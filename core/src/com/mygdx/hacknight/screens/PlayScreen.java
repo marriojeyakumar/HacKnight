@@ -151,6 +151,9 @@ public class PlayScreen implements Screen {
         } else if (levelNumber == 4) {
             camera.position.x = 12.5f * HacKnight.TILE_LENGTH * HacKnight.SCALE;
         }
+        else if (levelNumber == 2 && worldRenderer.getMarioX() > 39.5f * HacKnight.TILE_LENGTH * HacKnight.SCALE) {
+            camera.position.x = 39.5f * HacKnight.TILE_LENGTH * HacKnight.SCALE;
+        }
         else if (worldRenderer.getMarioX() > 12.5 * HacKnight.TILE_LENGTH * HacKnight.SCALE)
             camera.position.x = worldRenderer.getMarioX();
         else
@@ -168,7 +171,6 @@ public class PlayScreen implements Screen {
         if(levelNumber == 6 && hud.getWorldTimer() <= 100) {
             SoundManager.COLOSSEUM_FIGHT.stop();
             SoundManager.COLOSSEUM_FIGHT_SLOW.stop();
-
         }
         if (hud.getWorldTimer() <= 40 && hud.getWorldTimer() >= 39.5) {
             SoundManager.THEME_SONG.stop();
@@ -202,7 +204,7 @@ public class PlayScreen implements Screen {
                 SoundManager.SPED_UP_THEME_SONG.setVolume(0.22f);
                 break;
             case 2:
-                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Level3 Song.mp3"));
+                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Grocery.mp3"));
                 SoundManager.THEME_SONG.setVolume(0.45f);
                 SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Level3 Song Speed.mp3"));
                 SoundManager.SPED_UP_THEME_SONG.setVolume(0.45f);
