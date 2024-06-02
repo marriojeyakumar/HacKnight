@@ -43,6 +43,8 @@ public class HacKnight extends Game {
 	public static final short EXIT_DOOR_COL = 2048;
 	public static final short ENEMY_BORDER_COL = 4096;
 
+	public static final int ITEM_COL = 8192;
+
 	// Holds all sprites and images
 	// Public so all screens can have access to it
 	public static SpriteBatch batch;
@@ -55,7 +57,7 @@ public class HacKnight extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		super.setScreen(new PlayScreen(this, new com.mygdx.hacknight.GameHud(batch), 1));
+		super.setScreen(new PlayScreen(this, new com.mygdx.hacknight.GameHud(batch), 4));
 	}
 
 	@Override

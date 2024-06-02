@@ -4,7 +4,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.mygdx.hacknight.GameHud;
 import com.mygdx.hacknight.HacKnight;
+import com.mygdx.hacknight.SoundManager;
 import com.mygdx.hacknight.screens.PlayScreen;
 
 public class Pizza extends Item {
@@ -24,6 +26,13 @@ public class Pizza extends Item {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(6 * HacKnight.SCALE);
+        fdef.filter.categoryBits = HacKnight.ITEM_COL;
+        fdef.filter.maskBits = HacKnight.MARIO_COL |
+                HacKnight.GROUND_COL |
+                HacKnight.DEFAULT_COL |
+                HacKnight.COIN_BLOCK_COL |
+                HacKnight.DESTROYED_COL |
+                HacKnight.BRICK_COL;
 
         fdef.shape = shape;
         body.createFixture(fdef).setUserData(this);
@@ -32,6 +41,8 @@ public class Pizza extends Item {
     @Override
     public void use() {
         destroy();
+        GameHud.updateScore(1000);
+        SoundManager.EAT_SOUND.play();
     }
 
     @Override

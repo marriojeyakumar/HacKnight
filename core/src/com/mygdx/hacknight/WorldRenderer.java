@@ -33,6 +33,7 @@ import com.mygdx.hacknight.tiles.EnemyBorder;
 import com.mygdx.hacknight.tiles.ExitDoor;
 import com.mygdx.hacknight.tiles.Flagpole;
 import com.mygdx.hacknight.tiles.Ground;
+import java.util.Random;
 
 
 public class WorldRenderer implements Disposable {
@@ -54,6 +55,8 @@ public class WorldRenderer implements Disposable {
     private static PlayScreen screen;
     private Array<Item> items;
     private LinkedBlockingQueue<ItemDef> itemsToSpawn;
+    private float pizzaTime = 0;
+    private Random r = new Random();
 
     public WorldRenderer(TiledMap map, PlayScreen screen) {
         this.screen = screen;
@@ -102,6 +105,12 @@ public class WorldRenderer implements Disposable {
         } else {
             if (!mario.isDead()) {
                 getInput(delta);
+
+                pizzaTime += delta;
+                if (pizzaTime >= 1f) {
+                    pizzaTime = 0;
+                    spawnItem(new ItemDef(new Vector2((32 + r.nextInt(8) * 48) * HacKnight.SCALE, 216 * HacKnight.SCALE), Pizza.class));
+                }
 
                 handleSpawningItems();
                 for (Item item : items) {
