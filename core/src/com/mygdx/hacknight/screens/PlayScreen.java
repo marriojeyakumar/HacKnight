@@ -214,6 +214,12 @@ public class PlayScreen implements Screen {
                 SoundManager.SPED_UP_THEME_SONG.setVolume(0.22f);
                 break;
             case 6:
+                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Colosseum Fight Slow.mp3"));
+                SoundManager.THEME_SONG.setVolume(0.4f);
+                SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Colosseum Song.mp3"));
+                SoundManager.SPED_UP_THEME_SONG.setVolume(0.4f);
+                break;
+            case 7:
                 SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Delfino Plaza.mp3"));
                 SoundManager.THEME_SONG.setVolume(0.4f);
                 SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Delfino Plaza Speed.mp3"));
