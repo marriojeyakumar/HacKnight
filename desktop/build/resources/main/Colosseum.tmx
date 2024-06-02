@@ -66,6 +66,9 @@
  </objectgroup>
  <objectgroup id="11" name="goombas"/>
  <objectgroup id="12" name="koopas"/>
+ <objectgroup id="13" name="randomEnemy">
+    <object id="213" x="880" y="288" width="16" height="16"/>
+ </objectgroup>
  <objectgroup id="7" name="flagpole"/>
  <objectgroup id="6" name="exit"/>
  <objectgroup id="5" name="enemyborders"/>

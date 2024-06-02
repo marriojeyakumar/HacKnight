@@ -75,7 +75,7 @@ public class RandomMovementEnemy extends Enemy {
         body.createFixture(fixtureDef).setUserData(this);
         frames = new Array<TextureRegion>();
         for (int i = 0; i < 2; i++)
-            frames.add(new TextureRegion(PlayScreen.atlas.findRegion("small_mario"), i * 16, 0, 16, 16));
+            frames.add(new TextureRegion(PlayScreen.atlas.findRegion("small_mario")));
         walkAnimation = new Animation(0.4f, frames);
         stateTime = 0;
         setBounds(getX(), getY(), 1, 1);
