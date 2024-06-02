@@ -2,6 +2,7 @@ package com.mygdx.hacknight;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -52,7 +53,7 @@ public class WorldRenderer implements Disposable {
     private boolean isGameOver = false;
     private static PlayScreen screen;
     private Array<Item> items;
-    private Array<ItemDef> itemsToSpawn;
+    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
     public WorldRenderer(TiledMap map, PlayScreen screen) {
         this.screen = screen;
@@ -65,12 +66,11 @@ public class WorldRenderer implements Disposable {
         world.setContactListener(new GameContactListener());
 
         items = new Array<Item>();
-        itemsToSpawn = new Array<ItemDef>();
+        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
 
     }
 
     public WorldRenderer(String mapName, PlayScreen screen) {
-
         this(new TmxMapLoader().load(mapName), screen);
     }
 
@@ -195,7 +195,7 @@ public class WorldRenderer implements Disposable {
 
     public void handleSpawningItems() {
         if (!itemsToSpawn.isEmpty()) {
-            ItemDef idef = itemsToSpawn.get(0);
+            ItemDef idef = itemsToSpawn.poll();
             if (idef.type == Pizza.class) {
                 items.add(new Pizza(screen, idef.position.x, idef.position.y));
             }
