@@ -1,0 +1,4 @@
+#Sat Jun 01 22:19:14 EDT 2024
+base.0=C\:\\Users\\simon\\Projects\\HacKnight\\android\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
