@@ -165,7 +165,11 @@ public class PlayScreen implements Screen {
             HacKnight.batch.setProjectionMatrix(gameOverScreen.stage.getCamera().combined);
             game.setScreen(new GameOverScreen(game));
         }
+        if(levelNumber == 6 && hud.getWorldTimer() <= 100) {
+            SoundManager.COLOSSEUM_FIGHT.stop();
+            SoundManager.COLOSSEUM_FIGHT_SLOW.stop();
 
+        }
         if (hud.getWorldTimer() <= 40 && hud.getWorldTimer() >= 39.5) {
             SoundManager.THEME_SONG.stop();
             SoundManager.SPEED_UP_MUSIC.play();

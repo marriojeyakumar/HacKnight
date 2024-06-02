@@ -100,7 +100,7 @@ public class WorldRenderer implements Disposable {
             hud.stopTimer();
             flagpoleHit(delta);
         }
-        else if (screen.getLevelNumber() == 6 && hud.getWorldTimer() <= 20) {
+        else if (screen.getLevelNumber() == 6 && hud.getWorldTimer() <= 100) {
             hud.stopTimer();
             flagpoleHit(delta);
 
