@@ -33,6 +33,7 @@ public class PlayScreen implements Screen {
     private final HacKnight game;
 
     int levelNumber;
+    public static int levelNumberBackup;
     Map<Integer, String> levels;
 
     private final OrthographicCamera camera;
@@ -64,6 +65,7 @@ public class PlayScreen implements Screen {
 
         this.worldRenderer = new WorldRenderer(levels.get(this.levelNumber), this);
 
+        levelNumberBackup = levelNumber;
         camera.position.set(vport.getWorldWidth() / 2, vport.getWorldHeight() / 2, 0);
         camera.update();
 
@@ -165,9 +167,9 @@ public class PlayScreen implements Screen {
             HacKnight.batch.setProjectionMatrix(gameOverScreen.stage.getCamera().combined);
             game.setScreen(new GameOverScreen(game));
         }
-        if(levelNumber == 6 && hud.getWorldTimer() <= 100) {
-            SoundManager.COLOSSEUM_FIGHT.stop();
-            SoundManager.COLOSSEUM_FIGHT_SLOW.stop();
+        if((levelNumber == 6 && hud.getWorldTimer() <= 7) || (levelNumber == 4 && hud.getWorldTimer() <= 7)) {
+            SoundManager.THEME_SONG.stop();
+            SoundManager.SPED_UP_THEME_SONG.stop();
 
         }
         if (hud.getWorldTimer() <= 40 && hud.getWorldTimer() >= 39.5) {

@@ -51,13 +51,14 @@ public class HacKnight extends Game {
 
 	public static float START_TIME = 0.0f;
 
+
 	/*
 	init sprite batch and set the screen to PlayScreen
 	 */
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		super.setScreen(new PlayScreen(this, new com.mygdx.hacknight.GameHud(batch), 4));
+		super.setScreen(new PlayScreen(this, new com.mygdx.hacknight.GameHud(batch), 6));
 	}
 
 	@Override

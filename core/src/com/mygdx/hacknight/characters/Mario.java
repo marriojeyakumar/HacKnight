@@ -19,6 +19,7 @@ import com.mygdx.hacknight.HacKnight;
 import com.mygdx.hacknight.SoundManager;
 import com.mygdx.hacknight.WorldRenderer;
 import com.mygdx.hacknight.screens.PlayScreen;
+import com.mygdx.hacknight.HacKnight;
 
 
 public class Mario extends Sprite implements Disposable {
@@ -34,6 +35,8 @@ public class Mario extends Sprite implements Disposable {
     public State currentState;
     public State previousState;
     private boolean isDead;
+
+    private int levelNum;
     private boolean flagpoleHit = false;
     private float stateTimer;
     private boolean runningRight;
@@ -41,10 +44,10 @@ public class Mario extends Sprite implements Disposable {
     private boolean walkedOff = false;
     private boolean wentThroughExitDoor = false;
 
-    public Mario(World world) {
+    public Mario(World world, int levelNumber) {
         super(PlayScreen.atlas.findRegion("small_mario"));
         this.world = world;
-
+        levelNum = levelNumber;
         currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0;
@@ -105,6 +108,7 @@ public class Mario extends Sprite implements Disposable {
         }
     }
     public void walkOffStage(float delta) {
+        System.out.println(levelNum);
         if (wentThroughExitDoor)
             setPosition(0, 0);
         else {
@@ -116,8 +120,8 @@ public class Mario extends Sprite implements Disposable {
             SoundManager.STAGE_WIN_SOUND.play();
             walkedOff = true;
         }
-
-        mario.setLinearVelocity(new Vector2(15f, -45f));
+        if(levelNum != 6 && levelNum != 4)
+            mario.setLinearVelocity(new Vector2(15f, -45f));
     }
 
     public void goThroughExitDoor() {
@@ -139,6 +143,8 @@ public class Mario extends Sprite implements Disposable {
         }
 
         SoundManager.FLAGPOLE_SOUND.play();
+        SoundManager.THEME_SONG.stop();
+        SoundManager.SPED_UP_THEME_SONG.stop();
         flagpoleHit = true;
     }
 

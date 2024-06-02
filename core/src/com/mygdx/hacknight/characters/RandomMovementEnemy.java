@@ -1,5 +1,6 @@
 package com.mygdx.hacknight.characters;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,35 +15,24 @@ import com.mygdx.hacknight.SoundManager;
 import com.mygdx.hacknight.WorldRenderer;
 import com.mygdx.hacknight.screens.PlayScreen;
 
-import java.util.Random;
 
 public class RandomMovementEnemy extends Enemy {
     private boolean isDead = false;
     private boolean hasDied = false;
 
     private float stateTime;
-    private Animation<TextureRegion> walkAnimation;
+    private Animation walkAnimation;
     private Array<TextureRegion> frames;
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean setToObliterate;
     private boolean obliterated;
 
-    private Random random;
-    private float moveTimer;
-    private float jumpTimer;
-
-    private boolean deathAnimationStarted = false;
-
-    public RandomMovementEnemy(WorldRenderer worldRenderer, float x, float y) {
+    public RandomMovementEnemy(WorldRenderer worldRenderer, float x, float y){
         super(worldRenderer, x, y);
         destroyed = false;
         setToDestroy = false;
-        random = new Random();
-
-        movement = new Vector2(randomDirection() * 5f, -8f);
-        moveTimer = random.nextFloat() * 2 + 1;
-        jumpTimer = random.nextFloat() * 2 + 1;
+        movement = new Vector2(5f * (Math.random() - 0.5 >= 0 ? 1 : -1), -8f);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(getX(), getY());
@@ -74,10 +64,10 @@ public class RandomMovementEnemy extends Enemy {
         fixtureDef.filter.maskBits = HacKnight.MARIO_COL;
 
         body.createFixture(fixtureDef).setUserData(this);
-        frames = new Array<>();
-        for (int i = 1; i < 4; i++)
-            frames.add(new TextureRegion(PlayScreen.atlas.findRegion("small_mario"), i * 16, 0, 15, 16));
-        walkAnimation = new Animation<>(0.4f, frames);
+        frames = new Array<TextureRegion>();
+        for(int i = 0; i < 2; i++)
+            frames.add(new TextureRegion(PlayScreen.atlas.findRegion("goomba"), i * 16, 0, 16, 16));
+        walkAnimation = new Animation(0.4f, frames);
         stateTime = 0;
         setBounds(getX(), getY(), 1, 1);
         setToDestroy = false;
@@ -86,14 +76,12 @@ public class RandomMovementEnemy extends Enemy {
         body.setActive(false);
     }
 
-    private int randomDirection() {
-        return random.nextBoolean() ? 1 : -1;
-    }
 
     @Override
     public void dispose() {
 
     }
+
 
     public void update(float delta) {
         if (hasDied && !isDead) {
@@ -101,59 +89,38 @@ public class RandomMovementEnemy extends Enemy {
             isDead = true;
         }
 
+        body.setLinearVelocity(movement);
+
         stateTime += delta;
-        moveTimer -= delta;
-        jumpTimer -= delta;
-
-        if (moveTimer <= 0) {
-            movement.x = randomDirection() * 5f;
-            moveTimer = random.nextFloat() * 2 + 1;
+        if(setToDestroy && !destroyed){
+            world.destroyBody(body);
+            destroyed = true;
+            setRegion(new TextureRegion(PlayScreen.atlas.findRegion("goomba"), 32, 0, 16, 16));
+            stateTime = 0;
         }
-
-        if (jumpTimer <= 0) {
-            body.applyLinearImpulse(new Vector2(0, 15f), body.getWorldCenter(), true);
-            jumpTimer = random.nextFloat() * 2 + 1;
+        if(setToObliterate && !obliterated){
+            body.applyLinearImpulse(new Vector2(0f, 20f), body.getWorldCenter(),true);
+            obliterated = true;
+            setRegion(new TextureRegion(PlayScreen.atlas.findRegion("goomba"), 0, 0, 16, 16));
+            flip(false, true);
+            world.destroyBody(body);
+            stateTime = 0;
         }
-
-        if (deathAnimationStarted) {
-            // Play the death animation: falling out of the world
-            body.setLinearVelocity(new Vector2(0, -10f));
-        } else {
+        else if(!destroyed && !obliterated) {
             body.setLinearVelocity(movement);
-        }
-
-        if (setToDestroy && !destroyed) {
-            startDeathAnimation();
-        } else if (!destroyed && !obliterated) {
             setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2 + 0.1f);
             setRegion((TextureRegion) walkAnimation.getKeyFrame(stateTime, true));
-
-            // Flip sprite based on movement direction
-            if (movement.x < 0 && !isFlipX()) {
-                flip(true, false);
-            } else if (movement.x > 0 && isFlipX()) {
-                flip(true, false);
-            }
         }
-    }
-
-    private void startDeathAnimation() {
-        deathAnimationStarted = true;
-        destroyed = true;
-        body.setLinearVelocity(new Vector2(0, -10f));
-        stateTime = 0;
-        // Optionally play a death sound or any other visual effect
     }
 
     public void draw(Batch batch) {
-        if (setToObliterate) {
+        if(setToObliterate) {
             setPosition(-100, -100);
         }
-        if (!destroyed || stateTime < 0.3) {
+        if(!destroyed || stateTime < 0.3) {
             super.draw(batch);
         }
     }
-
     @Override
     public void receiveHit() {
         setToDestroy = true;
