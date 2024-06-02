@@ -9,10 +9,10 @@ import com.mygdx.hacknight.HacKnight;
 import com.mygdx.hacknight.SoundManager;
 import com.mygdx.hacknight.screens.PlayScreen;
 
-public class Pizza extends Item {
-    public Pizza(PlayScreen screen, float x, float y) {
+public class Cheese extends Item {
+    public Cheese(PlayScreen screen, float x, float y) {
         super(screen, x, y);
-        setRegion(PlayScreen.atlas.findRegion("pizza"), 0, 0, 16, 16);
+        setRegion(PlayScreen.atlas.findRegion("cheese"), 0, 0, 16, 16);
         velocity = new Vector2(0, 0);
     }
 

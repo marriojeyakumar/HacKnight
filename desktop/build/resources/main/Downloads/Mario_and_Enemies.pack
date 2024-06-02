@@ -38,3 +38,17 @@ pizza
   orig: 16, 16
   offset: 0, 0
   index: -1
+carrot
+  rotate: false
+  xy: 288, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+cheese
+  rotate: false
+  xy: 304, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1

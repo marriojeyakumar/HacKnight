@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.hacknight.characters.Enemy;
 import com.mygdx.hacknight.characters.Koopa;
 import com.mygdx.hacknight.characters.Mario;
+import com.mygdx.hacknight.items.Item;
 import com.mygdx.hacknight.tiles.Coin;
 import com.mygdx.hacknight.tiles.InteractableObject;
 
@@ -139,7 +140,7 @@ public class GameContactListener implements ContactListener {
         }
 
         else if (col == (HacKnight.ENEMY_COL | HacKnight.ENEMY_BORDER_COL)) {
-            if (fixtureA.getFilterData().categoryBits == HacKnight.ENEMY_COL) {
+            if (fixtureA.getFilterData().categoryBits == HacKnight.MARIO_COL) {
                 if (!(fixtureA.getUserData() instanceof Koopa && ((Koopa) fixtureA.getUserData()).getCurrentState() == Koopa.KoopaState.MOVING_SHELL)) {
                     Enemy enemy = (Enemy) fixtureA.getUserData();
                     enemy.reverse();
@@ -147,6 +148,30 @@ public class GameContactListener implements ContactListener {
             } else if (!(fixtureB.getUserData() instanceof Koopa && ((Koopa) fixtureB.getUserData()).getCurrentState() == Koopa.KoopaState.MOVING_SHELL)) {
                 Enemy enemy = (Enemy) fixtureB.getUserData();
                 enemy.reverse();
+            }
+        }
+
+        else if (col == (HacKnight.MARIO_COL | HacKnight.ITEM_COL)) {
+            if (fixtureA.getFilterData().categoryBits == HacKnight.MARIO_COL) {
+                Item item = (Item) fixtureB.getUserData();
+                item.use();
+            } else {
+                Item item = (Item) fixtureA.getUserData();
+                item.use();
+            }
+        }
+
+        else if (col == (HacKnight.GROUND_COL | HacKnight.ITEM_COL) ||
+                col == (HacKnight.DEFAULT_COL | HacKnight.ITEM_COL) ||
+                col == (HacKnight.COIN_BLOCK_COL | HacKnight.ITEM_COL) ||
+                col == (HacKnight.DESTROYED_COL | HacKnight.ITEM_COL) ||
+                col == (HacKnight.BRICK_COL | HacKnight.ITEM_COL)) {
+            if (fixtureA.getFilterData().categoryBits == HacKnight.ITEM_COL) {
+                Item item = (Item) fixtureA.getUserData();
+                item.destroy();
+            } else {
+                Item item = (Item) fixtureB.getUserData();
+                item.destroy();
             }
         }
     }
