@@ -102,7 +102,12 @@ public class WorldRenderer implements Disposable {
         if (mario.isFlagpoleHit()) {
             hud.stopTimer();
             flagpoleHit(delta);
-        } else {
+        }
+        else if (screen.getLevelNumber() == 6 && hud.getWorldTimer() <= 20) {
+            hud.stopTimer();
+            flagpoleHit(delta);
+
+        }else {
             if (!mario.isDead()) {
                 getInput(delta);
 
