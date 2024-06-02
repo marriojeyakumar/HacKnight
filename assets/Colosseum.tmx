@@ -64,8 +64,8 @@
  <objectgroup id="12" name="koopas"/>
  <objectgroup id="14" name="flagpole"/>
  <objectgroup id="15" name="exit"/>
+ <objectgroup id="16" name="enemyborders"/>
  <objectgroup id="19" name="luigi">
   <object id="298" x="880" y="288" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="16" name="enemyborders"/>
 </map>
