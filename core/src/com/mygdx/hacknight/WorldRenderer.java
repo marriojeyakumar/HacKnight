@@ -69,7 +69,7 @@ public class WorldRenderer implements Disposable {
         this.screen = screen;
         this.game = screen.getGame();
         this.camera = screen.getCamera();
-        mario = new Mario(world);
+        mario = new Mario(world, screen.getLevelNumber());
         this.map = map;
         this.renderer = new OrthogonalTiledMapRenderer(map, HacKnight.SCALE);
         constructWorld();
@@ -110,7 +110,7 @@ public class WorldRenderer implements Disposable {
             hud.stopTimer();
             flagpoleHit(delta);
         }
-        else if (screen.getLevelNumber() == 6 && hud.getWorldTimer() <= 100) {
+        else if ((screen.getLevelNumber() == 6 && hud.getWorldTimer() <= 7) || (screen.getLevelNumber() == 4 && hud.getWorldTimer() <= 7)) {
             hud.stopTimer();
             flagpoleHit(delta);
 

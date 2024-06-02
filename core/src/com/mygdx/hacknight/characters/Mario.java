@@ -38,10 +38,12 @@ public class Mario extends Sprite implements Disposable {
     private float stateTimer;
     private boolean runningRight;
 
+    private int levelNum;
+
     private boolean walkedOff = false;
     private boolean wentThroughExitDoor = false;
 
-    public Mario(World world) {
+    public Mario(World world, int levelNumber) {
         super(PlayScreen.atlas.findRegion("small_mario"));
         this.world = world;
 
@@ -49,6 +51,7 @@ public class Mario extends Sprite implements Disposable {
         previousState = State.STANDING;
         stateTimer = 0;
         runningRight = true;
+        levelNum = levelNumber;
         Array<TextureRegion> frames = new Array<>();
         for (int i = 1; i < 4; i++)
             frames.add(new TextureRegion(getTexture(), i * 16, 0, 15, 16) );
@@ -116,8 +119,8 @@ public class Mario extends Sprite implements Disposable {
             SoundManager.STAGE_WIN_SOUND.play();
             walkedOff = true;
         }
-
-        mario.setLinearVelocity(new Vector2(15f, -45f));
+        if(levelNum != 4 && levelNum != 6)
+            mario.setLinearVelocity(new Vector2(15f, -45f));
     }
 
     public void goThroughExitDoor() {

@@ -33,6 +33,7 @@ public class PlayScreen implements Screen {
     private final HacKnight game;
 
     int levelNumber;
+    public static int levelNumberBackup;
     Map<Integer, String> levels;
 
     private final OrthographicCamera camera;
@@ -64,6 +65,7 @@ public class PlayScreen implements Screen {
 
         this.worldRenderer = new WorldRenderer(levels.get(this.levelNumber), this);
 
+        levelNumberBackup = levelNumber;
         camera.position.set(vport.getWorldWidth() / 2, vport.getWorldHeight() / 2, 0);
         camera.update();
 
@@ -151,9 +153,6 @@ public class PlayScreen implements Screen {
         } else if (levelNumber == 4) {
             camera.position.x = 12.5f * HacKnight.TILE_LENGTH * HacKnight.SCALE;
         }
-        else if (levelNumber == 2 && worldRenderer.getMarioX() > 39.5f * HacKnight.TILE_LENGTH * HacKnight.SCALE) {
-            camera.position.x = 39.5f * HacKnight.TILE_LENGTH * HacKnight.SCALE;
-        }
         else if (worldRenderer.getMarioX() > 12.5 * HacKnight.TILE_LENGTH * HacKnight.SCALE)
             camera.position.x = worldRenderer.getMarioX();
         else
@@ -168,9 +167,10 @@ public class PlayScreen implements Screen {
             HacKnight.batch.setProjectionMatrix(gameOverScreen.stage.getCamera().combined);
             game.setScreen(new GameOverScreen(game));
         }
-        if(levelNumber == 6 && hud.getWorldTimer() <= 100) {
-            SoundManager.COLOSSEUM_FIGHT.stop();
-            SoundManager.COLOSSEUM_FIGHT_SLOW.stop();
+        if((levelNumber == 6 && hud.getWorldTimer() <= 7) || (levelNumber == 4 && hud.getWorldTimer() <= 7)) {
+            SoundManager.THEME_SONG.stop();
+            SoundManager.SPED_UP_THEME_SONG.stop();
+
         }
         if (hud.getWorldTimer() <= 40 && hud.getWorldTimer() >= 39.5) {
             SoundManager.THEME_SONG.stop();
@@ -186,7 +186,7 @@ public class PlayScreen implements Screen {
     private void constructLevels() {
         levels = new HashMap<>();
         levels.put(1, "Level1.tmx");
-        levels.put(2, "GroceryStore.tmx");
+        levels.put(2, "Level2.tmx");
         levels.put(3, "Level2.tmx");
         levels.put(4, "PizzaSkyDrop.tmx");
         levels.put(5, "Level3.tmx");
@@ -204,7 +204,7 @@ public class PlayScreen implements Screen {
                 SoundManager.SPED_UP_THEME_SONG.setVolume(0.22f);
                 break;
             case 2:
-                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Grocery.mp3"));
+                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Level3 Song.mp3"));
                 SoundManager.THEME_SONG.setVolume(0.45f);
                 SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Level3 Song Speed.mp3"));
                 SoundManager.SPED_UP_THEME_SONG.setVolume(0.45f);
