@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -14,11 +16,14 @@ import com.mygdx.hacknight.GameHud;
 import com.mygdx.hacknight.HacKnight;
 import com.mygdx.hacknight.SoundManager;
 import com.mygdx.hacknight.WorldRenderer;
-
+import com.mygdx.hacknight.items.Item;
+import com.mygdx.hacknight.items.ItemDef;
+import com.mygdx.hacknight.items.Pizza;
 
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 /*
 Actual rendering of the HacKnight is delegated to a screen.
@@ -69,6 +74,8 @@ public class PlayScreen implements Screen {
         configureThemeSong();
         game.playThemeSong();
     }
+
+
 
     @Override
     public void show() {
@@ -141,6 +148,8 @@ public class PlayScreen implements Screen {
         } else if (hasEnteredFight || levelNumber == 6 && worldRenderer.getMarioX() > 46.5f * HacKnight.TILE_LENGTH * HacKnight.SCALE) {
             camera.position.x = 46.5f * HacKnight.TILE_LENGTH * HacKnight.SCALE;
             hasEnteredFight = true;
+        } else if (levelNumber == 4) {
+            camera.position.x = 12.5f * HacKnight.TILE_LENGTH * HacKnight.SCALE;
         }
         else if (worldRenderer.getMarioX() > 12.5 * HacKnight.TILE_LENGTH * HacKnight.SCALE)
             camera.position.x = worldRenderer.getMarioX();
@@ -157,16 +166,15 @@ public class PlayScreen implements Screen {
             game.setScreen(new GameOverScreen(game));
         }
 
-        if (hud.getWorldTimer() <= 30 && hud.getWorldTimer() >= 29.5) {
+        if (hud.getWorldTimer() <= 40 && hud.getWorldTimer() >= 39.5) {
             SoundManager.THEME_SONG.stop();
             SoundManager.SPEED_UP_MUSIC.play();
         }
 
-        if(hud.getWorldTimer() <= 27) {
+        if(hud.getWorldTimer() <= 37) {
             SoundManager.THEME_SONG.stop();
             SoundManager.SPED_UP_THEME_SONG.play();
         }
-
     }
 
     private void constructLevels() {
@@ -202,16 +210,16 @@ public class PlayScreen implements Screen {
                 SoundManager.SPED_UP_THEME_SONG.setVolume(3f);
                 break;
             case 4:
+                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Pizza Song.mp3"));
+                SoundManager.THEME_SONG.setVolume(0.45f);
+                SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Pizza Song Fast.mp3"));
+                SoundManager.SPED_UP_THEME_SONG.setVolume(0.45f);
+                break;
+            case 5:
                 SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Level3 Song.mp3"));
                 SoundManager.THEME_SONG.setVolume(0.45f);
                 SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Level3 Song Speed.mp3"));
                 SoundManager.SPED_UP_THEME_SONG.setVolume(0.45f);
-                break;
-            case 5:
-                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Sky Theme.mp3"));
-                SoundManager.THEME_SONG.setVolume(0.22f);
-                SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Sky Theme Speed.mp3"));
-                SoundManager.SPED_UP_THEME_SONG.setVolume(0.22f);
                 break;
             case 6:
                 SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Colosseum Fight Slow.mp3"));
@@ -220,6 +228,12 @@ public class PlayScreen implements Screen {
                 SoundManager.SPED_UP_THEME_SONG.setVolume(0.4f);
                 break;
             case 7:
+                SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Sky Theme.mp3"));
+                SoundManager.THEME_SONG.setVolume(0.22f);
+                SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Sky Theme Speed.mp3"));
+                SoundManager.SPED_UP_THEME_SONG.setVolume(0.22f);
+                break;
+            case 8:
                 SoundManager.THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Delfino Plaza.mp3"));
                 SoundManager.THEME_SONG.setVolume(0.4f);
                 SoundManager.SPED_UP_THEME_SONG = Gdx.audio.newMusic(Gdx.files.internal("Downloads/Sounds & Music/Delfino Plaza Speed.mp3"));
@@ -246,5 +260,9 @@ public class PlayScreen implements Screen {
 
     public float getCameraY() {
         return camera.position.y;
+    }
+
+    public World getWorld() {
+        return worldRenderer.getWorld();
     }
 }

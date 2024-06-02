@@ -1,6 +1,7 @@
 package com.mygdx.hacknight;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -13,10 +14,14 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.hacknight.characters.Goomba;
 import com.mygdx.hacknight.characters.Koopa;
 import com.mygdx.hacknight.characters.Mario;
+import com.mygdx.hacknight.items.Item;
+import com.mygdx.hacknight.items.ItemDef;
+import com.mygdx.hacknight.items.Pizza;
 import com.mygdx.hacknight.screens.GameWonScreen;
 import com.mygdx.hacknight.screens.PlayScreen;
 import com.mygdx.hacknight.tiles.Brick;
@@ -46,6 +51,8 @@ public class WorldRenderer implements Disposable {
 
     private boolean isGameOver = false;
     private static PlayScreen screen;
+    private Array<Item> items;
+    private Array<ItemDef> itemsToSpawn;
 
     public WorldRenderer(TiledMap map, PlayScreen screen) {
         this.screen = screen;
@@ -56,6 +63,10 @@ public class WorldRenderer implements Disposable {
         this.renderer = new OrthogonalTiledMapRenderer(map, HacKnight.SCALE);
         constructWorld();
         world.setContactListener(new GameContactListener());
+
+        items = new Array<Item>();
+        itemsToSpawn = new Array<ItemDef>();
+
     }
 
     public WorldRenderer(String mapName, PlayScreen screen) {
@@ -74,6 +85,9 @@ public class WorldRenderer implements Disposable {
         for(Koopa koopa : koopas) {
             koopa.draw(HacKnight.batch);
         }
+        for (Item item : items) {
+            item.draw(HacKnight.batch);
+        }
         HacKnight.batch.end();
     }
 
@@ -88,6 +102,11 @@ public class WorldRenderer implements Disposable {
         } else {
             if (!mario.isDead()) {
                 getInput(delta);
+
+                handleSpawningItems();
+                for (Item item : items) {
+                    item.update(delta);
+                }
 
                 for (Goomba goomba : goombas) {
                     if (mario.getXCoordinate() > goomba.getXCoordinate() - (13 * HacKnight.TILE_LENGTH * HacKnight.SCALE))
@@ -150,7 +169,7 @@ public class WorldRenderer implements Disposable {
             throw new RuntimeException(e);
         }
 
-        if (screen.getLevelNumber() == 6) {
+        if (screen.getLevelNumber() == 7) {
             game.setScreen(new GameWonScreen(game));
         } else {
             game.setScreen(new PlayScreen(game, screen.getHud(), screen.getLevelNumber() + 1));
@@ -163,6 +182,19 @@ public class WorldRenderer implements Disposable {
             mario.moveRight();
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.A))
             mario.moveLeft();
+    }
+
+    public void spawnItem(ItemDef idef) {
+        itemsToSpawn.add(idef);
+    }
+
+    public void handleSpawningItems() {
+        if (!itemsToSpawn.isEmpty()) {
+            ItemDef idef = itemsToSpawn.get(0);
+            if (idef.type == Pizza.class) {
+                items.add(new Pizza(screen, idef.position.x, idef.position.y));
+            }
+        }
     }
 
     private void freeze() {
@@ -222,6 +254,9 @@ public class WorldRenderer implements Disposable {
                     rect.getY() * HacKnight.SCALE));
         }
     }
+
+
+
     private void constructLuigi() {
         goombas = new ArrayList<>();
         Rectangle rect;
@@ -327,6 +362,10 @@ public class WorldRenderer implements Disposable {
 
     public static float getCameraY() {
         return screen.getCameraY();
+    }
+
+    public PlayScreen getScreen() {
+        return screen;
     }
 
     @Override
