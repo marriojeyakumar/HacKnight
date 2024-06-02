@@ -27,7 +27,7 @@ public class CoinBlock extends PhysicalObject implements InteractableObject {
             SoundManager.BLANK_BLOCK_SOUND.play();
         else {
             SoundManager.COIN_SOUND.play();
-            wr.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y * HacKnight.SCALE), Pizza.class));
+            wr.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y + 16 * HacKnight.SCALE), Pizza.class));
         }
 
         getCell().setTile(tileset.getTile(28));
