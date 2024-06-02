@@ -20,6 +20,8 @@ import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.hacknight.characters.Goomba;
 import com.mygdx.hacknight.characters.Koopa;
 import com.mygdx.hacknight.characters.Mario;
+import com.mygdx.hacknight.items.Carrot;
+import com.mygdx.hacknight.items.Cheese;
 import com.mygdx.hacknight.items.Item;
 import com.mygdx.hacknight.items.ItemDef;
 import com.mygdx.hacknight.items.Pizza;
@@ -209,6 +211,15 @@ public class WorldRenderer implements Disposable {
             ItemDef idef = itemsToSpawn.poll();
             if (idef.type == Pizza.class) {
                 items.add(new Pizza(screen, idef.position.x, idef.position.y));
+            }
+            else if (idef.type == Cheese.class) {
+                items.add(new Cheese(screen, idef.position.x, idef.position.y));
+            }
+            else if (idef.type == Carrot.class) {
+                items.add(new Carrot(screen, idef.position.x, idef.position.y));
+            }
+            else if (idef.type == Carrot.class) {
+                items.add(new Carrot(screen, idef.position.x, idef.position.y));
             }
         }
     }

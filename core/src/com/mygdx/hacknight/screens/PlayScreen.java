@@ -184,7 +184,7 @@ public class PlayScreen implements Screen {
     private void constructLevels() {
         levels = new HashMap<>();
         levels.put(1, "Level1.tmx");
-        levels.put(2, "Level2.tmx");
+        levels.put(2, "GroceryStore.tmx");
         levels.put(3, "Level2.tmx");
         levels.put(4, "PizzaSkyDrop.tmx");
         levels.put(5, "Level3.tmx");
