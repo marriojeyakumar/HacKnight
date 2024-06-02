@@ -44,7 +44,6 @@ public class HacKnight extends Game {
 	public static final short ENEMY_BORDER_COL = 4096;
 
 	public static final int ITEM_COL = 8192;
-
 	public static final int CARROT_BLOCK_COL = 16384;
 	public static final int CHEESE_BLOCK_COL = 32768;
 	public static final int MEAT_BLOCK_COL = 65536;
@@ -55,14 +54,13 @@ public class HacKnight extends Game {
 
 	public static float START_TIME = 0.0f;
 
-
 	/*
 	init sprite batch and set the screen to PlayScreen
 	 */
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		super.setScreen(new PlayScreen(this, new com.mygdx.hacknight.GameHud(batch), 6));
+		super.setScreen(new PlayScreen(this, new com.mygdx.hacknight.GameHud(batch), 2));
 	}
 
 	@Override
